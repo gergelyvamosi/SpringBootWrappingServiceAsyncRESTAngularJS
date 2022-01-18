@@ -14,31 +14,29 @@ import org.springframework.stereotype.Service;
 public class WrappingService {
 
 	private static final Logger logger = LoggerFactory.getLogger(WrappingService.class);
-	
+
 	private Map<String, Wrapping> results = new ConcurrentHashMap<String, Wrapping>();
 
 	@Async
-	public CompletableFuture<Wrapping> getWrapping(Wrapping wrapping, String sessionId) throws InterruptedException {
+	public CompletableFuture<Wrapping> getWrapping(Wrapping wrapping, String sessionId) {
 		logger.info("Wrap Async WorkId=" + wrapping.getWorkId());
-		
+
 		if (wrapping.getWorkId() == -1) {
 			WorkerThread worker = new WorkerThread(wrapping, sessionId);
-			
+
 			worker.run();
-			
+
 			// wait for getting a real work ID
-			/*while (worker.getWrapping().getWorkId() == -1) {
-			}*/
+			/*
+			 * while (worker.getWrapping().getWorkId() == -1) { }
+			 */
 
 			// Artificial delay of 1s for demonstration purposes
-			//Thread.sleep(1000L);
-
-			return CompletableFuture.completedFuture(worker.getWrapping());
-		} else {
-			return CompletableFuture.completedFuture(results.get(sessionId + wrapping.getWorkId()));
+			// Thread.sleep(1000L);
 		}
+		return CompletableFuture.completedFuture(results.get(sessionId + wrapping.getWorkId()));
 	}
-	
+
 	/*
 	 * The worker thread.
 	 */
