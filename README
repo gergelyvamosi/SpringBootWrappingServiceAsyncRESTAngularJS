@@ -26,6 +26,10 @@ TODO: rethink worker-thread concept
 ----------------------------------------------------------------------------
 Update 2022-01-18
 
+new repository
+
+git clone -b master https://github.com/profgvamosi/SpringBootWrappingServiceAsyncRESTAngularJS.git
+
 refactored worker thread concept
 --------------------------------------------------------------------------------------------------------------
 
