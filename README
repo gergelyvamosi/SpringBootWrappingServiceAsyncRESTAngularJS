@@ -25,3 +25,53 @@ TODO: rethink worker-thread concept
 --------------------------------------------------------------------------------------------------------------
 
 gvamosi@yahoo.com
+
+
+----------------------------------------------------
+gvamosi@gergo1:~/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS$ git init
+Initialized empty Git repository in /home/gvamosi/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS/.git/
+gvamosi@gergo1:~/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS$ git add .
+gvamosi@gergo1:~/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS$ git remote add origin git@github.com:profgvamosi/SpringBootWrappingServiceAsyncRESTAngularJS.git
+gvamosi@gergo1:~/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS$ git commit -m "initial revision"
+[master (root-commit) aa678fe] initial revision
+ 25 files changed, 804 insertions(+)
+ create mode 100644 .classpath
+ create mode 100644 .gitignore
+ create mode 100644 .project
+ create mode 100644 .settings/.jsdtscope
+ create mode 100644 .settings/org.eclipse.core.resources.prefs
+ create mode 100644 .settings/org.eclipse.jdt.core.prefs
+ create mode 100644 .settings/org.eclipse.m2e.core.prefs
+ create mode 100644 .settings/org.eclipse.wst.common.component
+ create mode 100644 .settings/org.eclipse.wst.common.project.facet.core.xml
+ create mode 100644 .settings/org.eclipse.wst.jsdt.ui.superType.container
+ create mode 100644 .settings/org.eclipse.wst.jsdt.ui.superType.name
+ create mode 100644 .settings/org.eclipse.wst.validation.prefs
+ create mode 100644 README
+ create mode 100644 pom.xml
+ create mode 100644 src/main/java/org/gvamosi/wrapping/SpringBootWrappingServiceAsyncRESTAngularJSApplication.java
+ create mode 100644 src/main/java/org/gvamosi/wrapping/controller/WrappingController.java
+ create mode 100644 src/main/java/org/gvamosi/wrapping/model/Wrapping.java
+ create mode 100644 src/main/java/org/gvamosi/wrapping/service/WrappingService.java
+ create mode 100644 src/main/resources/application-dev.yml
+ create mode 100644 src/main/resources/application.properties
+ create mode 100644 src/main/resources/application.yml
+ create mode 100644 src/main/webapp/WEB-INF/web.xml
+ create mode 100644 src/main/webapp/index.jsp
+ create mode 100644 src/main/webapp/textWrapAngularJS.html
+ create mode 100644 src/test/java/org/gvamosi/wrapping/WrappingServiceTest.java
+gvamosi@gergo1:~/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS$ git push -u -f origin master
+Enumerating objects: 45, done.
+Counting objects: 100% (45/45), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (30/30), done.
+Writing objects: 100% (45/45), 10.32 KiB | 2.06 MiB/s, done.
+Total 45 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/profgvamosi/SpringBootWrappingServiceAsyncRESTAngularJS/pull/new/master
+remote: 
+To github.com:profgvamosi/SpringBootWrappingServiceAsyncRESTAngularJS.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+gvamosi@gergo1:~/eclipse-workspace-2021-03/SpringBootWrappingServiceAsyncRESTAngularJS$
