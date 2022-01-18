@@ -17,16 +17,8 @@ public class WrappingService {
 	
 	private Map<String, Wrapping> results = new ConcurrentHashMap<String, Wrapping>();
 
-	public Wrapping getWrapping(long workId, String sessionId) {
-		return results.get(sessionId + workId);
-	}
-
-	public Wrapping wrapText(Wrapping wrapping, String sessionId) throws InterruptedException, ExecutionException {
-		return executeWorkerThread(wrapping, sessionId).get();
-	}
-
 	@Async
-	public CompletableFuture<Wrapping> executeWorkerThread(Wrapping wrapping, String sessionId) throws InterruptedException {
+	public CompletableFuture<Wrapping> getWrapping(Wrapping wrapping, String sessionId) throws InterruptedException {
 		logger.info("Wrap Async WorkId=" + wrapping.getWorkId());
 		
 		if (wrapping.getWorkId() == -1) {
@@ -46,8 +38,11 @@ public class WrappingService {
 			return CompletableFuture.completedFuture(results.get(sessionId + wrapping.getWorkId()));
 		}
 	}
-
-	public class WorkerThread implements Runnable {
+	
+	/*
+	 * The worker thread.
+	 */
+	private class WorkerThread implements Runnable {
 
 		private Wrapping wrapping;
 		private String sessionId;
@@ -64,24 +59,27 @@ public class WrappingService {
 		@Override
 		public void run() {
 			long threadId = Thread.currentThread().getId();
-			if (getWrapping().getWorkId() == -1) {
+			if (wrapping.getWorkId() == -1) {
 
 				// set workId
-				getWrapping().setWorkId(threadId);
-				getWrapping().setProcessed(false);
-				results.put(sessionId + getWrapping().getWorkId(), getWrapping());
+				wrapping.setWorkId(threadId);
+				wrapping.setProcessed(false);
+				results.put(sessionId + wrapping.getWorkId(), wrapping);
 
 				// wrapping
 				wrapTextGivenLength(getWrapping());
-				results.put(sessionId + getWrapping().getWorkId(), getWrapping());
+				results.put(sessionId + wrapping.getWorkId(), wrapping);
 
 				// processed true
 				getWrapping().setProcessed(true);
-				results.put(sessionId + getWrapping().getWorkId(), getWrapping());
+				results.put(sessionId + wrapping.getWorkId(), wrapping);
 			}
 		}
 	}
 
+	/*
+	 * The core wrapper method.
+	 */
 	private void wrapTextGivenLength(Wrapping wrapping) {
 		String splitted[] = wrapping.getTextToWrap().split("\\s+");
 		for (int i = 0; i < splitted.length; i++) {

@@ -30,28 +30,30 @@ public class WrappingController {
 	@Autowired
 	WrappingService wrappingService;
 
-//	@RequestMapping(value = "/api/LineBreak", method = RequestMethod.POST, headers = "Accept=application/json")
 	@PostMapping(path = "/api/LineBreak", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Wrapping> wrapText(@RequestBody Wrapping wrapping, HttpServletRequest request) {
 		wrapping.setProcessed(false);
-		Wrapping result = new Wrapping();
+		return getWrapping(wrapping, request.getSession(false).getId());
+	}
+
+	@GetMapping(path = "/api/LineBreak/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Wrapping> getWrappingByWorkId(@PathVariable int id, HttpServletRequest request) {
+		Wrapping dummy = new Wrapping();
+		dummy.setWorkId(id);
+		return getWrapping(dummy, request.getSession(false).getId());
+	}
+	
+	/*
+	 * To be pragmatic. :)
+	 */
+	private ResponseEntity<Wrapping> getWrapping(Wrapping wrapping, String sessionId)  {
+		Wrapping result = null;
 		try {
-			result = wrappingService.wrapText(wrapping, request.getSession(false).getId());
+			result = wrappingService.getWrapping(wrapping, sessionId).get();
 		} catch (InterruptedException | ExecutionException e) {
 			logger.error(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		if (result.isProcessed()) {
-			return new ResponseEntity<>(result, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
-		}
-	}
-
-//	@RequestMapping(value = "/api/LineBreak/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-	@GetMapping(path = "/api/LineBreak/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Wrapping> getWrappingByWorkId(@PathVariable int id, HttpServletRequest request) {
-		Wrapping result = wrappingService.getWrapping(id, request.getSession(false).getId());
 		if (result == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else if (result.isProcessed()) {

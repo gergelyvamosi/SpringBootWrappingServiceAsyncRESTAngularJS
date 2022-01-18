@@ -32,7 +32,7 @@ public class WrappingServiceTest {
 		Wrapping wrapping = new Wrapping();
 		wrapping.setWorkId(-1);
 		wrapping.setTextToWrap("This is a test sentence to smoke-test line breaking.");
-		wrapping = wrappingService.wrapText(wrapping, sessionId);
+		wrapping = wrappingService.getWrapping(wrapping, sessionId).get();
 		Assert.assertNotEquals("Wrapping processed", wrapping.getWorkId(), -1);
 		Assert.assertArrayEquals("Wrapped text", wrapping.getWrappedText().toArray(),
 				new String[] { "This is a ", "test ", "sentence ", "to ", "smoke-test", "line ", "breaking." });
