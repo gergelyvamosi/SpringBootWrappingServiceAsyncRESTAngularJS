@@ -22,6 +22,11 @@ mvn spring-boot:run -Dapp.profiles=test
 JUnit 4 Mockito test added.
 
 TODO: rethink worker-thread concept
+
+----------------------------------------------------------------------------
+Update 2022-01-18
+
+refactored worker thread concept
 --------------------------------------------------------------------------------------------------------------
 
 gvamosi@yahoo.com
