@@ -30,7 +30,7 @@ new repository
 
 git clone -b master https://github.com/profgvamosi/SpringBootWrappingServiceAsyncRESTAngularJS.git
 
-refactored worker thread concept
+refactored worker thread concept (Spring @Async)
 --------------------------------------------------------------------------------------------------------------
 
 gvamosi@yahoo.com
