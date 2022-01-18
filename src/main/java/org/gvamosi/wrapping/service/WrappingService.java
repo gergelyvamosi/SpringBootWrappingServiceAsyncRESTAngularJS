@@ -16,14 +16,14 @@ public class WrappingService {
 
 	private Map<String, Wrapping> results = new ConcurrentHashMap<String, Wrapping>();
 
-	@Async
+	@Async("taskExecutor")
 	public CompletableFuture<Wrapping> getWrapping(Wrapping wrapping, String sessionId) {
 		logger.info("Wrap Async WorkId=" + wrapping.getWorkId());
 
 		if (wrapping.getWorkId() == -1) {
-			WorkerThread worker = new WorkerThread(wrapping, sessionId);
+			//WorkerThread worker = new WorkerThread(wrapping, sessionId);
 
-			worker.run();
+			//worker.run();
 
 			// wait for getting a real work ID
 			/*
@@ -32,6 +32,10 @@ public class WrappingService {
 
 			// Artificial delay of 1s for demonstration purposes
 			// Thread.sleep(1000L);
+			wrapping.setWorkId(Thread.currentThread().getId());
+			wrapTextGivenLength(wrapping);
+			wrapping.setProcessed(true);
+			results.put(sessionId + wrapping.getWorkId(), wrapping);
 		}
 		return CompletableFuture.completedFuture(results.get(sessionId + wrapping.getWorkId()));
 	}
@@ -39,6 +43,7 @@ public class WrappingService {
 	/*
 	 * The worker thread.
 	 */
+	@Deprecated
 	private class WorkerThread implements Runnable {
 
 		private Wrapping wrapping;
