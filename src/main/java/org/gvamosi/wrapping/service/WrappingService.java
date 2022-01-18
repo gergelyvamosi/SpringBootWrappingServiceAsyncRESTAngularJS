@@ -3,7 +3,6 @@ package org.gvamosi.wrapping.service;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 import org.gvamosi.wrapping.model.Wrapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
