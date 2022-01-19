@@ -1,6 +1,5 @@
 package org.gvamosi.wrapping;
 
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,17 +16,17 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class WrappingServiceTest {
-	
+
 	@Autowired
 	private WrappingService wrappingService;
-	
+
 	@Before
 	public void setUp() {
 		wrappingService = new WrappingService();
 	}
-	
+
 	@Test
-	public void testWrapText() throws InterruptedException, ExecutionException {
+	public void testWrapText10() throws InterruptedException, ExecutionException {
 		String sessionId = "ABC001";
 		Wrapping wrapping = new Wrapping();
 		wrapping.setWorkId(-1);
@@ -36,6 +35,19 @@ public class WrappingServiceTest {
 		Assert.assertNotEquals("Wrapping processed", wrapping.getWorkId(), -1);
 		Assert.assertArrayEquals("Wrapped text", wrapping.getWrappedText().toArray(),
 				new String[] { "This is a ", "test ", "sentence ", "to ", "smoke-test", "line ", "breaking." });
+	}
+
+	@Test
+	public void testWrapText5() throws InterruptedException, ExecutionException {
+		String sessionId = "ABC001";
+		Wrapping wrapping = new Wrapping();
+		wrapping.setWorkId(-1);
+		wrapping.setTextToWrap("This is a test where n is very tiny.");
+		wrapping.setWrapLength(5);
+		wrapping = wrappingService.getWrapping(wrapping, sessionId).get();
+		Assert.assertNotEquals("Wrapping processed", wrapping.getWorkId(), -1);
+		Assert.assertArrayEquals("Wrapped text", wrapping.getWrappedText().toArray(),
+				new String[] { "This ", "is a ", "test ", "where", "n is ", "very ", "tiny." });
 	}
 
 }
