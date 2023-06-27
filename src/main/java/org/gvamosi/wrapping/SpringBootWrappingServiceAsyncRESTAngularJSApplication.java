@@ -16,14 +16,14 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 public class SpringBootWrappingServiceAsyncRESTAngularJSApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootWrappingServiceAsyncRESTAngularJSApplication.class, args);
+		SpringApplication.run(SpringBootWrappingServiceAsyncRESTAngularJSApplication.class, args)/*.close()*/;
 	}
 
 	@Bean
 	public Executor taskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(20);
-		executor.setMaxPoolSize(20);
+		executor.setCorePoolSize(2);
+		executor.setMaxPoolSize(2);
 		executor.setQueueCapacity(500);
 		executor.setThreadNamePrefix("WrapText-");
 		executor.initialize();
